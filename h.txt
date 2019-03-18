@@ -1,0 +1,22 @@
+string stuID=TwxtBoxStuID.Text;
+string  ped=TwxtBoxPwd.Text;
+string connectionString="Server=(local);Database=TestDB;Integrated Security=true;";
+//string connectionString="Server=(local);Database=TestDB;UID=sa;PWD=sq12008;";
+SqlConnection connection=new SqlConnection(connectionString);
+bool verified=false;
+connection.Open();
+string queryString="SELECT *FROM Student;";
+SqlCommand command=new SqlCommand (queryString,connection);
+SqlDataReader reader=command.ExcuteReader();
+while(reader.Read())
+{
+   if(stuID==reader[0].ToString()&&pwd==reader[1].ToString())
+{
+   verified=true;
+}
+}
+reader.Close();
+connection.Close();
+if(verified)
+Response.Write("<script>alert('µÇÂ¼³É¹¦');</script>");
+else Response.Write("<script>alert('µÇÂ¼Ê§°Ü');</script>");
